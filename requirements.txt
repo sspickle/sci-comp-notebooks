@@ -6,4 +6,6 @@ pandas
 scipy
 sympy
 tensorflow
+vpython
+
 
