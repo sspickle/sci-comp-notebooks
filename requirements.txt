@@ -6,6 +6,7 @@ pandas
 scipy
 sympy
 tensorflow
-vpython
+vpython==7.4.7
+
 
 
