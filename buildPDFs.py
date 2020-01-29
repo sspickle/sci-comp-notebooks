@@ -4,6 +4,7 @@ Build pdfs from student notebooks. You need a 'report_rubric.pdf' in the same di
 import sys
 import os
 import glob
+import re
 
 if len(sys.argv)>1:
     paths=sys.argv[1:]
@@ -26,13 +27,27 @@ rubricPath = os.path.join(os.path.dirname(sys.argv[0]),'report_rubric.pdf')
 
 print("Files:",files)
 
-for fname in files:
-    fpath, fsrc = os.path.split(fname)
+for afile in files:
+
+    blocks = afile.split('/')
+    print("Found blocks:", blocks)
+    fname = blocks[-1]
+    print("Searching for username in ", blocks[1])
+    userRE = re.compile("\((.+)\)")
+    m = userRE.search(blocks[1])
+    username = m.group(1)
+    print("found username:", username)
+    #codeDir = '/'.join(blocks[:-1])
+    #os.chdir(os.path.join(cwd, codeDir))
+    #print("Checking %s" % codeDir)
+
+    fpath, fsrc = os.path.split(afile)
     fRoot = os.path.splitext(fsrc)[0]
     fPDF = os.path.join(fpath, fRoot + '.pdf')
-    fDest = '.'.join([fRoot,'out','pdf'])
+    fDest = '.'.join(['./output/' + username,'out','pdf'])
+
     if not os.path.exists(fDest):
-        cmd = "jupyter nbconvert --to PDF %s" % fname
+        cmd = 'jupyter nbconvert --to PDF "%s"' % afile
         print("executing:", cmd)
         result = os.system(cmd)
         if not result:
