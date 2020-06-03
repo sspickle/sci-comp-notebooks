@@ -6,7 +6,5 @@ pandas
 scipy
 sympy
 tensorflow
-vpython==7.4.7
-
-
-
+xlrd
+openpyxl
