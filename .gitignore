@@ -6,5 +6,6 @@ Icon*
 /cython_ext
 *.so
 
+.DS_Store
 
 
